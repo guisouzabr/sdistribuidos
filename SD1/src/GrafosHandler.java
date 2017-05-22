@@ -90,8 +90,11 @@ public class GrafosHandler implements grafodb.Operations.Iface
             if(V.nome == nome){
                 //Removendo arestas que estão ligadas nesse vértice
                 for (Aresta a : grafos.getA()) {
-                    if (a.v1 == nome || a.v2 == nome)
-                        grafos.getA().remove(a);
+                    if (a.v1 == nome || a.v2 == nome) {
+                        removeAresta(a.v1, a.v2);
+                        if(grafos.getA().isEmpty())
+                            break;
+                    }
                 }
                 //Removendo o vértice
                 grafos.getV().remove(V);
@@ -166,7 +169,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
         String msg = "Seu grafo: ";
         msg = msg + listarVertices();
         msg = msg +listarArestas();
-        msg = msg +listarVizinhos();
+        msg = msg +listarVizinhos(1);
         return msg;
     }
 
@@ -199,7 +202,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String listarVizinhos()
+    public String listarVizinhos(int nome)
     {
         return ".";
     }
@@ -234,5 +237,20 @@ public class GrafosHandler implements grafodb.Operations.Iface
         }
         //Cliente: Quais valores estão na aresta X
         return null;
+    }
+
+    @Override
+    public String listarAvertice(int nome)
+    {
+        String s = "Arestas do vértice :"+nome+"\n";
+        for(Aresta as : grafos.getA())
+        {
+            if(as.v1 == nome || as.v2 == nome)
+                s = s+ "Vértice 1: "+ as.v1 +" "+
+                        "Vértice 2: "+as.v2 +" "+
+                        "Peso: "+ as.peso + " "+
+                        "Descrição: "+ as.desc+ "\n";
+        }
+        return s;
     }
 }

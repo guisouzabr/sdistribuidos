@@ -34,10 +34,14 @@ service Operations
 	bool removeAresta(1:i32 v1,2:i32 v2),
 	bool atuVertice(1:Vertice v,2:i32 nome),
 	bool atuAresta(1:Aresta a,2:i32 v1,3:i32 v2),
+
 	string exibirGrafo (),
 	string  listarVertices(),
 	string  listarArestas(),
-	string  listarVizinhos(),
+
+    string listarAvertice(1:i32 nome),
+	string  listarVizinhos(1:i32 nome),
+
 	Vertice getVertice(1:i32 nome),
 	Aresta getAresta(1:i32 v1,2:i32 v2)
  }

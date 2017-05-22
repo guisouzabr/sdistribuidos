@@ -20,6 +20,7 @@ public class GrafosDbServer
             GrafosHandler handler = new GrafosHandler();
             grafodb.Operations.Processor processor = new grafodb.Operations.Processor(handler);
             TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
+            System.out.println("Servidor conectado com sucesso!");
             server.serve();
         } catch (Exception e) {
             e.printStackTrace();
