@@ -40,7 +40,9 @@ service Operations
 	string  listarArestas(),
 
     string listarAvertice(1:i32 nome),
+    string listarVaresta(1:i32 v1, 2:i32 v2),
 	string  listarVizinhos(1:i32 nome),
+
 
 	Vertice getVertice(1:i32 nome),
 	Aresta getAresta(1:i32 v1,2:i32 v2)

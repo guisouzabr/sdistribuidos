@@ -32,6 +32,8 @@ public class Operations {
 
     public java.lang.String listarAvertice(int nome) throws org.apache.thrift.TException;
 
+    public java.lang.String listarVaresta(int v1, int v2) throws org.apache.thrift.TException;
+
     public java.lang.String listarVizinhos(int nome) throws org.apache.thrift.TException;
 
     public Vertice getVertice(int nome) throws org.apache.thrift.TException;
@@ -61,6 +63,8 @@ public class Operations {
     public void listarArestas(org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException;
 
     public void listarAvertice(int nome, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException;
+
+    public void listarVaresta(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException;
 
     public void listarVizinhos(int nome, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException;
 
@@ -326,6 +330,30 @@ public class Operations {
         return result.success;
       }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listarAvertice failed: unknown result");
+    }
+
+    public java.lang.String listarVaresta(int v1, int v2) throws org.apache.thrift.TException
+    {
+      send_listarVaresta(v1, v2);
+      return recv_listarVaresta();
+    }
+
+    public void send_listarVaresta(int v1, int v2) throws org.apache.thrift.TException
+    {
+      listarVaresta_args args = new listarVaresta_args();
+      args.setV1(v1);
+      args.setV2(v2);
+      sendBase("listarVaresta", args);
+    }
+
+    public java.lang.String recv_listarVaresta() throws org.apache.thrift.TException
+    {
+      listarVaresta_result result = new listarVaresta_result();
+      receiveBase(result, "listarVaresta");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listarVaresta failed: unknown result");
     }
 
     public java.lang.String listarVizinhos(int nome) throws org.apache.thrift.TException
@@ -760,6 +788,41 @@ public class Operations {
       }
     }
 
+    public void listarVaresta(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      listarVaresta_call method_call = new listarVaresta_call(v1, v2, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class listarVaresta_call extends org.apache.thrift.async.TAsyncMethodCall<java.lang.String> {
+      private int v1;
+      private int v2;
+      public listarVaresta_call(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.v1 = v1;
+        this.v2 = v2;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listarVaresta", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        listarVaresta_args args = new listarVaresta_args();
+        args.setV1(v1);
+        args.setV2(v2);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public java.lang.String getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new java.lang.IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_listarVaresta();
+      }
+    }
+
     public void listarVizinhos(int nome, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       listarVizinhos_call method_call = new listarVizinhos_call(nome, resultHandler, this, ___protocolFactory, ___transport);
@@ -882,6 +945,7 @@ public class Operations {
       processMap.put("listarVertices", new listarVertices());
       processMap.put("listarArestas", new listarArestas());
       processMap.put("listarAvertice", new listarAvertice());
+      processMap.put("listarVaresta", new listarVaresta());
       processMap.put("listarVizinhos", new listarVizinhos());
       processMap.put("getVertice", new getVertice());
       processMap.put("getAresta", new getAresta());
@@ -1094,6 +1158,26 @@ public class Operations {
       }
     }
 
+    public static class listarVaresta<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listarVaresta_args> {
+      public listarVaresta() {
+        super("listarVaresta");
+      }
+
+      public listarVaresta_args getEmptyArgsInstance() {
+        return new listarVaresta_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public listarVaresta_result getResult(I iface, listarVaresta_args args) throws org.apache.thrift.TException {
+        listarVaresta_result result = new listarVaresta_result();
+        result.success = iface.listarVaresta(args.v1, args.v2);
+        return result;
+      }
+    }
+
     public static class listarVizinhos<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listarVizinhos_args> {
       public listarVizinhos() {
         super("listarVizinhos");
@@ -1177,6 +1261,7 @@ public class Operations {
       processMap.put("listarVertices", new listarVertices());
       processMap.put("listarArestas", new listarArestas());
       processMap.put("listarAvertice", new listarAvertice());
+      processMap.put("listarVaresta", new listarVaresta());
       processMap.put("listarVizinhos", new listarVizinhos());
       processMap.put("getVertice", new getVertice());
       processMap.put("getAresta", new getAresta());
@@ -1796,6 +1881,67 @@ public class Operations {
 
       public void start(I iface, listarAvertice_args args, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
         iface.listarAvertice(args.nome,resultHandler);
+      }
+    }
+
+    public static class listarVaresta<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, listarVaresta_args, java.lang.String> {
+      public listarVaresta() {
+        super("listarVaresta");
+      }
+
+      public listarVaresta_args getEmptyArgsInstance() {
+        return new listarVaresta_args();
+      }
+
+      public org.apache.thrift.async.AsyncMethodCallback<java.lang.String> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.thrift.async.AsyncMethodCallback<java.lang.String>() { 
+          public void onComplete(java.lang.String o) {
+            listarVaresta_result result = new listarVaresta_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.thrift.transport.TTransportException e) {
+              _LOGGER.error("TTransportException writing to internal frame buffer", e);
+              fb.close();
+            } catch (java.lang.Exception e) {
+              _LOGGER.error("Exception writing to internal frame buffer", e);
+              onError(e);
+            }
+          }
+          public void onError(java.lang.Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TSerializable msg;
+            listarVaresta_result result = new listarVaresta_result();
+            if (e instanceof org.apache.thrift.transport.TTransportException) {
+              _LOGGER.error("TTransportException inside handler", e);
+              fb.close();
+              return;
+            } else if (e instanceof org.apache.thrift.TApplicationException) {
+              _LOGGER.error("TApplicationException inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TApplicationException)e;
+            } else {
+              _LOGGER.error("Exception inside handler", e);
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+            } catch (java.lang.Exception ex) {
+              _LOGGER.error("Exception writing to internal frame buffer", ex);
+              fb.close();
+            }
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, listarVaresta_args args, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
+        iface.listarVaresta(args.v1, args.v2,resultHandler);
       }
     }
 
@@ -9932,6 +10078,822 @@ public class Operations {
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, listarAvertice_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = iprot.readString();
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class listarVaresta_args implements org.apache.thrift.TBase<listarVaresta_args, listarVaresta_args._Fields>, java.io.Serializable, Cloneable, Comparable<listarVaresta_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listarVaresta_args");
+
+    private static final org.apache.thrift.protocol.TField V1_FIELD_DESC = new org.apache.thrift.protocol.TField("v1", org.apache.thrift.protocol.TType.I32, (short)1);
+    private static final org.apache.thrift.protocol.TField V2_FIELD_DESC = new org.apache.thrift.protocol.TField("v2", org.apache.thrift.protocol.TType.I32, (short)2);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new listarVaresta_argsStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new listarVaresta_argsTupleSchemeFactory();
+
+    public int v1; // required
+    public int v2; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      V1((short)1, "v1"),
+      V2((short)2, "v2");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // V1
+            return V1;
+          case 2: // V2
+            return V2;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __V1_ISSET_ID = 0;
+    private static final int __V2_ISSET_ID = 1;
+    private byte __isset_bitfield = 0;
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.V1, new org.apache.thrift.meta_data.FieldMetaData("v1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+      tmpMap.put(_Fields.V2, new org.apache.thrift.meta_data.FieldMetaData("v2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listarVaresta_args.class, metaDataMap);
+    }
+
+    public listarVaresta_args() {
+    }
+
+    public listarVaresta_args(
+      int v1,
+      int v2)
+    {
+      this();
+      this.v1 = v1;
+      setV1IsSet(true);
+      this.v2 = v2;
+      setV2IsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public listarVaresta_args(listarVaresta_args other) {
+      __isset_bitfield = other.__isset_bitfield;
+      this.v1 = other.v1;
+      this.v2 = other.v2;
+    }
+
+    public listarVaresta_args deepCopy() {
+      return new listarVaresta_args(this);
+    }
+
+    @Override
+    public void clear() {
+      setV1IsSet(false);
+      this.v1 = 0;
+      setV2IsSet(false);
+      this.v2 = 0;
+    }
+
+    public int getV1() {
+      return this.v1;
+    }
+
+    public listarVaresta_args setV1(int v1) {
+      this.v1 = v1;
+      setV1IsSet(true);
+      return this;
+    }
+
+    public void unsetV1() {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __V1_ISSET_ID);
+    }
+
+    /** Returns true if field v1 is set (has been assigned a value) and false otherwise */
+    public boolean isSetV1() {
+      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __V1_ISSET_ID);
+    }
+
+    public void setV1IsSet(boolean value) {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __V1_ISSET_ID, value);
+    }
+
+    public int getV2() {
+      return this.v2;
+    }
+
+    public listarVaresta_args setV2(int v2) {
+      this.v2 = v2;
+      setV2IsSet(true);
+      return this;
+    }
+
+    public void unsetV2() {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __V2_ISSET_ID);
+    }
+
+    /** Returns true if field v2 is set (has been assigned a value) and false otherwise */
+    public boolean isSetV2() {
+      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __V2_ISSET_ID);
+    }
+
+    public void setV2IsSet(boolean value) {
+      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __V2_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, java.lang.Object value) {
+      switch (field) {
+      case V1:
+        if (value == null) {
+          unsetV1();
+        } else {
+          setV1((java.lang.Integer)value);
+        }
+        break;
+
+      case V2:
+        if (value == null) {
+          unsetV2();
+        } else {
+          setV2((java.lang.Integer)value);
+        }
+        break;
+
+      }
+    }
+
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case V1:
+        return getV1();
+
+      case V2:
+        return getV2();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case V1:
+        return isSetV1();
+      case V2:
+        return isSetV2();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof listarVaresta_args)
+        return this.equals((listarVaresta_args)that);
+      return false;
+    }
+
+    public boolean equals(listarVaresta_args that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_v1 = true;
+      boolean that_present_v1 = true;
+      if (this_present_v1 || that_present_v1) {
+        if (!(this_present_v1 && that_present_v1))
+          return false;
+        if (this.v1 != that.v1)
+          return false;
+      }
+
+      boolean this_present_v2 = true;
+      boolean that_present_v2 = true;
+      if (this_present_v2 || that_present_v2) {
+        if (!(this_present_v2 && that_present_v2))
+          return false;
+        if (this.v2 != that.v2)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + v1;
+
+      hashCode = hashCode * 8191 + v2;
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(listarVaresta_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.valueOf(isSetV1()).compareTo(other.isSetV1());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetV1()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.v1, other.v1);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = java.lang.Boolean.valueOf(isSetV2()).compareTo(other.isSetV2());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetV2()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.v2, other.v2);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+    }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("listarVaresta_args(");
+      boolean first = true;
+
+      sb.append("v1:");
+      sb.append(this.v1);
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("v2:");
+      sb.append(this.v2);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class listarVaresta_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public listarVaresta_argsStandardScheme getScheme() {
+        return new listarVaresta_argsStandardScheme();
+      }
+    }
+
+    private static class listarVaresta_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<listarVaresta_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listarVaresta_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // V1
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.v1 = iprot.readI32();
+                struct.setV1IsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // V2
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.v2 = iprot.readI32();
+                struct.setV2IsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listarVaresta_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldBegin(V1_FIELD_DESC);
+        oprot.writeI32(struct.v1);
+        oprot.writeFieldEnd();
+        oprot.writeFieldBegin(V2_FIELD_DESC);
+        oprot.writeI32(struct.v2);
+        oprot.writeFieldEnd();
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class listarVaresta_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public listarVaresta_argsTupleScheme getScheme() {
+        return new listarVaresta_argsTupleScheme();
+      }
+    }
+
+    private static class listarVaresta_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<listarVaresta_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, listarVaresta_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetV1()) {
+          optionals.set(0);
+        }
+        if (struct.isSetV2()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetV1()) {
+          oprot.writeI32(struct.v1);
+        }
+        if (struct.isSetV2()) {
+          oprot.writeI32(struct.v2);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, listarVaresta_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.v1 = iprot.readI32();
+          struct.setV1IsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.v2 = iprot.readI32();
+          struct.setV2IsSet(true);
+        }
+      }
+    }
+
+    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
+      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    }
+  }
+
+  public static class listarVaresta_result implements org.apache.thrift.TBase<listarVaresta_result, listarVaresta_result._Fields>, java.io.Serializable, Cloneable, Comparable<listarVaresta_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listarVaresta_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
+
+    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new listarVaresta_resultStandardSchemeFactory();
+    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new listarVaresta_resultTupleSchemeFactory();
+
+    public java.lang.String success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
+
+      static {
+        for (_Fields field : java.util.EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new java.lang.IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(java.lang.String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final java.lang.String _fieldName;
+
+      _Fields(short thriftId, java.lang.String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public java.lang.String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listarVaresta_result.class, metaDataMap);
+    }
+
+    public listarVaresta_result() {
+    }
+
+    public listarVaresta_result(
+      java.lang.String success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public listarVaresta_result(listarVaresta_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+    }
+
+    public listarVaresta_result deepCopy() {
+      return new listarVaresta_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public java.lang.String getSuccess() {
+      return this.success;
+    }
+
+    public listarVaresta_result setSuccess(java.lang.String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, java.lang.Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((java.lang.String)value);
+        }
+        break;
+
+      }
+    }
+
+    public java.lang.Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new java.lang.IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new java.lang.IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(java.lang.Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof listarVaresta_result)
+        return this.equals((listarVaresta_result)that);
+      return false;
+    }
+
+    public boolean equals(listarVaresta_result that) {
+      if (that == null)
+        return false;
+      if (this == that)
+        return true;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      int hashCode = 1;
+
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
+
+      return hashCode;
+    }
+
+    @Override
+    public int compareTo(listarVaresta_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = java.lang.Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      scheme(iprot).read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      scheme(oprot).write(oprot, this);
+      }
+
+    @Override
+    public java.lang.String toString() {
+      java.lang.StringBuilder sb = new java.lang.StringBuilder("listarVaresta_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class listarVaresta_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public listarVaresta_resultStandardScheme getScheme() {
+        return new listarVaresta_resultStandardScheme();
+      }
+    }
+
+    private static class listarVaresta_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<listarVaresta_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listarVaresta_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.success = iprot.readString();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listarVaresta_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeString(struct.success);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class listarVaresta_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+      public listarVaresta_resultTupleScheme getScheme() {
+        return new listarVaresta_resultTupleScheme();
+      }
+    }
+
+    private static class listarVaresta_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<listarVaresta_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, listarVaresta_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+        java.util.BitSet optionals = new java.util.BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          oprot.writeString(struct.success);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, listarVaresta_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {

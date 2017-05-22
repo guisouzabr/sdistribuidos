@@ -253,4 +253,19 @@ public class GrafosHandler implements grafodb.Operations.Iface
         }
         return s;
     }
+
+    public String listarVaresta(int v1, int v2)
+    {
+        String s = "Vértices da aresta desejada: \n";
+        for(Vertice v: grafos.getV())
+        {
+            if(v.nome == v1 || v.nome == v2) {
+                s = s + "Vértice: " + v.nome + " " +
+                        "Cor: " + getCores(v.cor) + " " +
+                        "Peso: " + v.peso + " " +
+                        "Descrição: " + v.desc + "\n";
+            }
+        }
+        return s;
+    }
 }

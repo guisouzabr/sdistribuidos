@@ -24,7 +24,7 @@ public class GrafosDbClient
 
             int op = 0;
             Scanner leitura = new Scanner(System.in);
-            while(op != 12)
+            while(op != 13)
             {
                 op = 0;
                 System.out.println("Bem-Vindo ao cliente do Grafos Server");
@@ -39,8 +39,9 @@ public class GrafosDbClient
                 System.out.println("8 - Exibir Vértices");
                 System.out.println("9 - Exibir Arestas");
                 System.out.println("10 - Exibir Arestas de um vértice");
-                System.out.println("11 - Exibir Vizinhança");
-                System.out.println("12 - Encerrar");
+                System.out.println("11 - Exibir vértices de uma aresta");
+                System.out.println("12 - Exibir Vizinhança");
+                System.out.println("13 - Encerrar");
                 op = leitura.nextInt();
                 switch(op){
                     case 1:
@@ -157,6 +158,13 @@ public class GrafosDbClient
                         System.out.println(client.listarAvertice(nvertice));
                         break;
                     case 11:
+                        System.out.println("Digite o nome do vértice1: ");
+                        int nvertice1 = leitura.nextInt();
+                        System.out.println("Digite o nome do vértice2: ");
+                        int nvertice2 = leitura.nextInt();
+                        System.out.println(client.listarVaresta(nvertice1,nvertice2));
+                        break;
+                    case 12:
                         System.out.println(client.listarVizinhos(1));
                         try {
                             Thread.sleep(5000);
@@ -164,7 +172,7 @@ public class GrafosDbClient
                             e.printStackTrace();
                         }
                         break;
-                    case 12:
+                    case 13:
                         System.out.println("Programando encerrado.");
                         break;
                     default:
