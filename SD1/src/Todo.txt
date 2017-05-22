@@ -1,0 +1,4 @@
+-- Terminar sutileza na bideração(tenta criar bidereção, se ja existir a bideração mas descrita com flag 1, muda pra 2) e não reinsere de novo(como
+está pode acontecer 3 arestas com msms vértices.
+-- Melhor caminho
+--Realizar mais testes contra bugs.
