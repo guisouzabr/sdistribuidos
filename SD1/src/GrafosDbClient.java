@@ -165,7 +165,9 @@ public class GrafosDbClient
                         System.out.println(client.listarVaresta(nvertice1,nvertice2));
                         break;
                     case 12:
-                        System.out.println(client.listarVizinhos(1));
+                        System.out.println("Digite o vértice que deseja conferir os vizinhos: ");
+                        int vi = leitura.nextInt();
+                        System.out.println(client.listarVizinhos(vi));
                         try {
                             Thread.sleep(5000);
                         }catch (InterruptedException e){

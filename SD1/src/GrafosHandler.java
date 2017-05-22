@@ -89,11 +89,13 @@ public class GrafosHandler implements grafodb.Operations.Iface
         {
             if(V.nome == nome){
                 //Removendo arestas que estão ligadas nesse vértice
-                for (Aresta a : grafos.getA()) {
-                    if (a.v1 == nome || a.v2 == nome) {
-                        removeAresta(a.v1, a.v2);
-                        if(grafos.getA().isEmpty())
+                for(int i=grafos.getA().size()-1; i >= 0;i--) {
+                    if(grafos.getA().get(i).v1 == nome || grafos.getA().get(i).v2 == nome)
+                    {
+                        grafos.a.remove(i);
+                        if(grafos.getA().isEmpty()) {
                             break;
+                        }
                     }
                 }
                 //Removendo o vértice
@@ -169,7 +171,6 @@ public class GrafosHandler implements grafodb.Operations.Iface
         String msg = "Seu grafo: ";
         msg = msg + listarVertices();
         msg = msg +listarArestas();
-        msg = msg +listarVizinhos(1);
         return msg;
     }
 
@@ -204,8 +205,30 @@ public class GrafosHandler implements grafodb.Operations.Iface
     @Override
     public String listarVizinhos(int nome)
     {
-        return ".";
+        String s = "Os vértices vizinhos de :"+nome+" são: \n";
+
+        for (Aresta as : grafos.getA())
+        {
+            if(as.v1 == nome)
+            {
+                Vertice v = getVertice(as.v2);
+                s = s+ "Vértice: "+ v.nome +" "+
+                        "Cor: "+getCores(v.cor) +" "+
+                        "Peso: "+ v.peso + " "+
+                        "Descrição: "+ v.desc+ "\n";
+            }
+            else if(as.v2 == nome)
+            {
+                Vertice v = getVertice(as.v1);
+                s = s+ "Vértice: "+ v.nome +" "+
+                        "Cor: "+getCores(v.cor) +" "+
+                        "Peso: "+ v.peso + " "+
+                        "Descrição: "+ v.desc+ "\n";
+            }
+        }
+        return s;
     }
+
     @Override
     public Vertice getVertice(int nome)
     {
