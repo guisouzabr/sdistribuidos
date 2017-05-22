@@ -54,7 +54,10 @@ public class GrafosDbClient
                         leitura.nextLine();
                         novo.desc = leitura.nextLine();
                         novo.cor = 1;
-                        client.criaVertice(novo.nome,novo.cor,novo.peso,novo.desc);
+                        if(!client.criaVertice(novo.nome,novo.cor,novo.peso,novo.desc))
+                            System.out.println("Ocorreu algum erro ao inserir seu vértice, tente novamente!");
+                        else
+                            System.out.println("vértice inserido com sucesso!");
                         System.out.println("Tecle enter");
                         leitura.nextLine();
                         break;
@@ -71,7 +74,10 @@ public class GrafosDbClient
                         anovo.desc = leitura.nextLine();
                         System.out.println("1 - Direcionado(Do primeiro para o segundo), 2 - Bidirecionado");
                         anovo.flag = leitura.nextInt();
-                        client.criaAresta(anovo.v1,anovo.v2,anovo.peso,anovo.flag,anovo.desc);
+                        if(!client.criaAresta(anovo.v1,anovo.v2,anovo.peso,anovo.flag,anovo.desc))
+                            System.out.println("Ocorreu algum erro ao inserir sua aresta, tente novamente!");
+                        else
+                            System.out.println("Aresta inserida com sucesso!");
                         System.out.println("Tecle enter");
                         leitura.nextLine();
                         break;
@@ -80,7 +86,10 @@ public class GrafosDbClient
                         System.out.println(client.listarVertices());
                         System.out.println("Digite o nome do vertice que deseja deletar: ");
                         del = leitura.nextInt();
-                        client.removeVertice(del);
+                        if(!client.removeVertice(del))
+                            System.out.println("Impossível encontrar o elemento desejado!!!");
+                        else
+                            System.out.println("Elemento removido com sucesso!");
                         break;
                     case 4:
                         int del2;
@@ -89,7 +98,10 @@ public class GrafosDbClient
                         System.out.println("Digite os vertices da aresta que deseja deletar: ");
                         del1 = leitura.nextInt();
                         del2 = leitura.nextInt();
-                        client.removeAresta(del1,del2);
+                        if(!client.removeAresta(del1,del2))
+                            System.out.println("Impossível encontrar o elemento desejado!!!");
+                        else
+                            System.out.println("Elemento removido com sucesso!");
                         break;
                     case 5:
                         System.out.println(client.listarVertices());
@@ -102,7 +114,10 @@ public class GrafosDbClient
                         leitura.nextLine();
                         novou.desc = leitura.nextLine();
                         novou.cor = 1;
-                        client.atuVertice(novou,novou.nome);
+                        if(!client.atuVertice(novou,novou.nome))
+                            System.out.println("Falha ao realizar atualização, vertice não encontrado!");
+                        else
+                            System.out.println("Atualizado com sucesso");
                         System.out.println("Tecle enter");
                         leitura.nextLine();
                         break;
@@ -119,7 +134,10 @@ public class GrafosDbClient
                         anovou.desc = leitura.nextLine();
                         System.out.println("1 - Direcionado(Do primeiro para o segundo), 2 - Bidirecionado");
                         anovou.flag = leitura.nextInt();
-                        client.atuAresta(anovou,anovou.v1,anovou.v2);
+                        if(!client.atuAresta(anovou,anovou.v1,anovou.v2))
+                            System.out.println("Falha ao realizar atualização, aresta não encontrada!");
+                        else
+                            System.out.println("Atualizado com sucesso");
                         System.out.println("Tecle enter");
                         leitura.nextLine();
                         System.out.println(client.listarArestas());
