@@ -40,7 +40,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean criaAresta(int v1,int v2, double peso, short flag, String desc)
+    public boolean criaAresta(int v1,int v2, double peso, int flag, String desc)
     {
         int ctrl = 0;
         Aresta novo = new Aresta();
@@ -59,6 +59,9 @@ public class GrafosHandler implements grafodb.Operations.Iface
                     novo.peso = peso;
                     novo.flag = flag;
                     novo.desc = desc;
+                    if(novo.flag == 2){
+                        grafos.addToA(new Aresta(novo.v2,novo.v1,novo.peso,novo.flag,novo.desc));
+                    }
                     grafos.addToA(novo);
                     return true;
                 }
@@ -72,6 +75,9 @@ public class GrafosHandler implements grafodb.Operations.Iface
                     novo.peso = peso;
                     novo.flag = flag;
                     novo.desc = desc;
+                    if(novo.flag == 2){
+                        grafos.addToA(new Aresta(novo.v2,novo.v1,novo.peso,novo.flag,novo.desc));
+                    }
                     grafos.addToA(novo);
                     return true;
                 }
@@ -152,6 +158,10 @@ public class GrafosHandler implements grafodb.Operations.Iface
             {
                 as.desc = a.desc;
                 as.peso = a.peso;
+                if(a.flag == 2 && as.flag != 2){
+                    Aresta novo = new Aresta(a.v2,a.v1,a.peso,a.flag,a.desc);
+                    grafos.addToA(novo);
+                }
                 as.flag = a.flag;
                 return true; //Modificação ocorreu com sucesso;
             }
@@ -168,7 +178,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     @Override
     public String exibirGrafo ()
     {
-        String msg = "Seu grafo: ";
+        String msg = "Seu grafo: \n";
         msg = msg + listarVertices();
         msg = msg +listarArestas();
         return msg;
@@ -177,7 +187,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     @Override
     public String listarVertices()
     {
-        String s = "vértices: ";
+        String s = "vértices: \n";
         for(Vertice v: grafos.getV())
         {
             s = s+ "Vértice: "+ v.nome +" "+
@@ -191,12 +201,13 @@ public class GrafosHandler implements grafodb.Operations.Iface
     @Override
     public String listarArestas()
     {
-        String s = "Arestas: ";
+        String s = "Arestas: \n";
         for(Aresta v: grafos.getA())
         {
             s = s+ "Vértice 1: "+ v.v1 +" "+
                     "Vértice 2: "+v.v2 +" "+
                     "Peso: "+ v.peso + " "+
+                    "Flag: "+ v.flag + " "+
                     "Descrição: "+ v.desc+ "\n";
         }
         return s;
@@ -272,6 +283,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
                 s = s+ "Vértice 1: "+ as.v1 +" "+
                         "Vértice 2: "+as.v2 +" "+
                         "Peso: "+ as.peso + " "+
+                        "Flag: "+ as.flag + " "+
                         "Descrição: "+ as.desc+ "\n";
         }
         return s;

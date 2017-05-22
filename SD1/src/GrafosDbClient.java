@@ -70,9 +70,7 @@ public class GrafosDbClient
                         leitura.nextLine();
                         anovo.desc = leitura.nextLine();
                         System.out.println("1 - Direcionado(Do primeiro para o segundo), 2 - Bidirecionado");
-                        anovo.flag = (short)leitura.nextInt();
-                        if(anovo.flag != 1 || anovo.flag != 2)
-                            anovo.flag = 1; // Uni-direcionado no caso de erro ao digitar
+                        anovo.flag = leitura.nextInt();
                         client.criaAresta(anovo.v1,anovo.v2,anovo.peso,anovo.flag,anovo.desc);
                         System.out.println("Tecle enter");
                         leitura.nextLine();
@@ -120,9 +118,7 @@ public class GrafosDbClient
                         leitura.nextLine();
                         anovou.desc = leitura.nextLine();
                         System.out.println("1 - Direcionado(Do primeiro para o segundo), 2 - Bidirecionado");
-                        anovou.flag = (short)leitura.nextInt();
-                        if(anovou.flag != 1 || anovou.flag != 2)
-                            anovou.flag = 1; // Uni-direcionado no caso de erro ao digitar
+                        anovou.flag = leitura.nextInt();
                         client.atuAresta(anovou,anovou.v1,anovou.v2);
                         System.out.println("Tecle enter");
                         leitura.nextLine();

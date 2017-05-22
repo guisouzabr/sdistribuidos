@@ -17,7 +17,7 @@ struct Aresta
 	1:i32 v1,
 	2:i32 v2,
 	3:double peso,
-	4:i16 flag,
+	4:i32 flag,
 	5:string desc
 }
 struct Grafo
@@ -29,7 +29,7 @@ struct Grafo
 service Operations
 {
 	bool criaVertice (1:i32 nome,2:i32 cor, 3:double peso, 4:string desc),
-	bool criaAresta(1:i32 v1,2:i32 v2, 3:double peso, 4:i16 flag, 5:string desc),
+	bool criaAresta(1:i32 v1,2:i32 v2, 3:double peso, 4:i32 flag, 5:string desc),
 	bool removeVertice(1:i32 nome),
 	bool removeAresta(1:i32 v1,2:i32 v2),
 	bool atuVertice(1:Vertice v,2:i32 nome),
