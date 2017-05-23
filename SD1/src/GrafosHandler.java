@@ -9,13 +9,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+
 import grafodb.*;
 public class GrafosHandler implements grafodb.Operations.Iface
 {
-    private Grafo grafos = new Grafo(new ArrayList<Vertice>(),new ArrayList<Aresta>());
+    private  Grafo grafos = new Grafo(new ArrayList<Vertice>(),new ArrayList<Aresta>());
 
     //Persistência em arquivo
-    public  void salvarGrafo(String caminho) {
+    public synchronized void salvarGrafo(String caminho) {
         try
         {
             FileOutputStream saveFile = new FileOutputStream(caminho);
@@ -29,7 +31,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
         }
     }
     //Recuperar grafo
-        public  void recuperaGrafo(String caminho) {
+        public synchronized void recuperaGrafo(String caminho) {
             Object objeto = null;
             try {
                 FileInputStream restFile = new FileInputStream(caminho);
@@ -46,7 +48,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
 
 
     @Override
-    public boolean criaVertice(int nome, int cor, double peso, String desc)
+    public synchronized boolean criaVertice(int nome, int cor, double peso, String desc)
     {
         Vertice novo = new Vertice();
         if(novo == null) //Foi criado?
@@ -76,7 +78,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean criaAresta(int v1,int v2, double peso, int flag, String desc)
+    public synchronized boolean criaAresta(int v1,int v2, double peso, int flag, String desc)
     {
         int ctrl = 0;
         Aresta novo = new Aresta();
@@ -124,7 +126,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean removeVertice(int nome)
+    public synchronized boolean removeVertice(int nome)
     {
         //Verifica se o vértice existe, remove as arestas ligadas a ele e o remove
         for(Vertice V : grafos.getV())
@@ -149,7 +151,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean removeAresta(int v1,int v2)
+    public synchronized boolean removeAresta(int v1,int v2)
     {
         for(Aresta as : grafos.getA())
         {
@@ -164,7 +166,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean atuVertice(Vertice v,int nome)
+    public synchronized boolean atuVertice(Vertice v,int nome)
     {
         if(v == null || v.nome != nome)
             return false; //novo vértice nullo ou com nome diferente do vértice buscado, gera excepetion (vértices não podem ter o nome modificado).
@@ -183,7 +185,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public boolean atuAresta(Aresta a,int v1,int v2)
+    public synchronized boolean atuAresta(Aresta a,int v1,int v2)
     {
         if(a == null || a.v1 != v1 || a.v2 != v2)
             return false; //tentou modificar vértices da aresta ou passou uma aresta nova nula.
@@ -212,7 +214,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String exibirGrafo ()
+    public synchronized String exibirGrafo ()
     {
         String msg = "Seu grafo: \n";
         msg = msg + listarVertices();
@@ -221,7 +223,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String listarVertices()
+    public synchronized String listarVertices()
     {
         String s = "vértices: \n";
         for(Vertice v: grafos.getV())
@@ -235,7 +237,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String listarArestas()
+    public synchronized String listarArestas()
     {
         String s = "Arestas: \n";
         for(Aresta v: grafos.getA())
@@ -250,7 +252,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String listarVizinhos(int nome)
+    public synchronized String listarVizinhos(int nome)
     {
         String s = "Os vértices vizinhos de :"+nome+" são: \n";
 
@@ -277,7 +279,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public Vertice getVertice(int nome)
+    public synchronized Vertice getVertice(int nome)
     {
         for(Vertice v: grafos.getV())
         {
@@ -294,7 +296,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public Aresta getAresta(int v1,int v2)
+    public synchronized Aresta getAresta(int v1,int v2)
     {
         for(Aresta v: grafos.getA())
         {
@@ -310,7 +312,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
     }
 
     @Override
-    public String listarAvertice(int nome)
+    public synchronized String listarAvertice(int nome)
     {
         String s = "Arestas do vértice :"+nome+"\n";
         for(Aresta as : grafos.getA())
@@ -325,7 +327,7 @@ public class GrafosHandler implements grafodb.Operations.Iface
         return s;
     }
 
-    public String listarVaresta(int v1, int v2)
+    public synchronized String listarVaresta(int v1, int v2)
     {
         String s = "Vértices da aresta desejada: \n";
         for(Vertice v: grafos.getV())
