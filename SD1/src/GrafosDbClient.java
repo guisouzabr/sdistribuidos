@@ -24,7 +24,7 @@ public class GrafosDbClient
 
             int op = 0;
             Scanner leitura = new Scanner(System.in);
-            while(op != 13)
+            while(op != 15)
             {
                 op = 0;
                 System.out.println("Bem-Vindo ao cliente do Grafos Server");
@@ -41,7 +41,9 @@ public class GrafosDbClient
                 System.out.println("10 - Exibir Arestas de um vértice");
                 System.out.println("11 - Exibir vértices de uma aresta");
                 System.out.println("12 - Exibir Vizinhança");
-                System.out.println("13 - Encerrar");
+                System.out.println("13 - Salvar Grafo");
+                System.out.println("14 - Carregar Grafo");
+                System.out.println("15 - Encerrar");
                 op = leitura.nextInt();
                 switch(op){
                     case 1:
@@ -189,6 +191,18 @@ public class GrafosDbClient
                         }
                         break;
                     case 13:
+                        System.out.println("Digite o nome do arquivo para salvar o grafo: ");
+                        leitura.nextLine();
+                        String arquivo = leitura.nextLine();
+                        client.salvarGrafo(arquivo);
+                        break;
+                    case 14:
+                        System.out.println("Digite o nome do arquivo para abrir o grafo: ");
+                        leitura.nextLine();
+                        String abrir = leitura.nextLine();
+                        client.recuperaGrafo(abrir);
+                        break;
+                    case 15:
                         System.out.println("Programando encerrado.");
                         break;
                     default:

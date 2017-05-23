@@ -43,7 +43,8 @@ service Operations
     string listarVaresta(1:i32 v1, 2:i32 v2),
 	string  listarVizinhos(1:i32 nome),
 
-
+    void salvarGrafo(1:string caminho),
+    void recuperaGrafo(1:string caminho),
 	Vertice getVertice(1:i32 nome),
 	Aresta getAresta(1:i32 v1,2:i32 v2)
  }

@@ -5,10 +5,45 @@ import org.apache.thrift.TException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import grafodb.*;
 public class GrafosHandler implements grafodb.Operations.Iface
 {
     private Grafo grafos = new Grafo(new ArrayList<Vertice>(),new ArrayList<Aresta>());
+
+    //Persistência em arquivo
+    public  void salvarGrafo(String caminho) {
+        try
+        {
+            FileOutputStream saveFile = new FileOutputStream(caminho);
+            ObjectOutputStream stream = new ObjectOutputStream(saveFile);
+            // salva o objeto
+            stream.writeObject((Object)grafos);
+            stream.close();
+        } catch (Exception exc)
+        {
+            exc.printStackTrace();
+        }
+    }
+    //Recuperar grafo
+        public  void recuperaGrafo(String caminho) {
+            Object objeto = null;
+            try {
+                FileInputStream restFile = new FileInputStream(caminho);
+                ObjectInputStream stream = new ObjectInputStream(restFile);
+                // recupera o objeto
+                objeto = stream.readObject();
+                stream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            grafos = (Grafo)objeto;
+        }
+
+
     @Override
     public boolean criaVertice(int nome, int cor, double peso, String desc)
     {
