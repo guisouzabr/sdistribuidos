@@ -36,11 +36,12 @@ public class GrafosHandler implements grafodb.Operations.Iface
                 ObjectInputStream stream = new ObjectInputStream(restFile);
                 // recupera o objeto
                 objeto = stream.readObject();
+                if(objeto != null)
+                    grafos = (Grafo)objeto;
                 stream.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            grafos = (Grafo)objeto;
         }
 
 
